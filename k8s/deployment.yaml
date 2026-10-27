@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-board
+  labels:
+    app: project-board
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: project-board
+  template:
+    metadata:
+      labels:
+        app: project-board
+    spec:
+      containers:
+        - name: project-board
+          image: IMAGE_PLACEHOLDER
+          ports:
+            - containerPort: 8080
+          resources:
+            requests: { cpu: 100m, memory: 256Mi }
+            limits:   { cpu: 500m, memory: 512Mi }
+          readinessProbe:
+            httpGet: { path: /, port: 8080 }
+            initialDelaySeconds: 20
+            periodSeconds: 10
