@@ -6,3 +6,6 @@ textarea {
     width: 50rem;
     height: 10rem;
 }
+body {
+    background-color: pink !important;  /* or lightblue */
+}
