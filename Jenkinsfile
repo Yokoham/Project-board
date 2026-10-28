@@ -78,7 +78,6 @@ pipeline {
             }
         }
 
-        /* ---- Enable after the EKS cluster exists ----
         stage('Deploy to Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
@@ -90,14 +89,13 @@ pipeline {
                 }
             }
         }
-        ---- end of Kubernetes stage ---- */
     }
 
     post {
         success {
             mail to: 'uaher97.ca@gmail.com',
-                 subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Pipeline succeeded.\nImage: ${IMAGE_NAME}:${IMAGE_TAG}\nBuild: ${env.BUILD_URL}"
+                 subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} deployed",
+                 body: "Deployment succeeded.\nImage: ${IMAGE_NAME}:${IMAGE_TAG}\nBuild: ${env.BUILD_URL}"
         }
         failure {
             mail to: 'uaher97.ca@gmail.com',
