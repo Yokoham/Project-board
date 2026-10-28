@@ -61,7 +61,7 @@ pipeline {
         stage('Trivy Scan') {
             steps {
                 // exit-code 0 = report only. Change to 1 to fail the build on HIGH/CRITICAL findings.
-                sh 'trivy image --exit-code 0 --severity HIGH,CRITICAL --no-progress ${IMAGE_NAME}:${IMAGE_TAG}'
+                sh 'TMPDIR=/var/lib/jenkins/trivy/tmp trivy image --cache-dir /var/lib/jenkins/trivy/cache --exit-code 0 --severity HIGH,CRITICAL --no-progress ${IMAGE_NAME}:${IMAGE_TAG}'
             }
         }
 
